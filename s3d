@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+command="$1"
+case "$command" in
+"" )
+  echo -e "\nUsage:  \n\n"
+  ;;
+"-h" | "--help" )
+  echo -e "\nUsage help:  \n\n"
+  ;;
+* )
+  echo -e "Executing $command"
+  ;;
+esac

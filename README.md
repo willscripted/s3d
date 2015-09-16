@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="320px" height="320px" src="https://raw.githubusercontent.com/will-ob/precheck/master/precheck.jpg" />
+  <img width="320px" height="320px" src="https://cloud.githubusercontent.com/assets/1069495/9904600/0ee7c91e-5c4d-11e5-803b-e99cdf824154.jpg" />
 </p>
 <p align="center">Image creds to <a href="https://www.flickr.com/photos/moto_club4ag/">Moto "Club4AG" Miwa</a> via <a href="https://www.flickr.com/photos/moto_club4ag/19015051458">Flickr</a></p>
 
@@ -48,12 +48,13 @@ make uninstall
 Config
 ---------
 
-See [examples]().
 
 ```
 # Any suffix (prod, test, local)
 s3d configure <suffix>
 ```
+
+See [examples](https://github.com/will-ob/s3d/tree/master/examples) for example configurations generated with this command.
 
 
 License

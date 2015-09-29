@@ -4,21 +4,42 @@
 <p align="center">Image creds to <a href="https://www.flickr.com/photos/moto_club4ag/">Moto "Club4AG" Miwa</a> via <a href="https://www.flickr.com/photos/moto_club4ag/19015051458">Flickr</a></p>
 
 
-Precheck & Deploy
+S3 Deploys
 ============
 
-Precheck and deploy apps to s3.
+Precheck, deploy, and verify S3 Assets.
+
+
+Consistent, source-controlled asset deployments.
+Consolidates deploy code between apps.
 
 ```
-- assert correct aws account
-- assert clean working directory
-- assert consistent deployment url
-- assert consistent bucket options (eg `--delete`, `--cache`)
-- consolidates deploy code between apps
-- allows "deploy" to local server
-- displays url of app in s3
-- displays url of app in cdns
-- post-deploy hooks
+Precheck
+----------
+
+Correct upload target (bucket)
+Correct path
+Correct AWS creds
+Assert clean working directory
+
+
+Deploy
+----------
+
+To s3
+To localhost
+
+Post-deploy hooks
+Display CDN statuses
+
+
+Verify
+----------
+
+Uploaded assets are accessable
+Uploaded assets have correct headers
+Cross-origin-bound assets are appropriately accessible
+
 ```
 
 Use
@@ -26,9 +47,9 @@ Use
 
 ```
 # any of ..
-s3d deploy .s3.production
-s3d deploy .s3.staging
-s3d deploy .s3.local
+s3d .s3.production
+s3d .s3.staging
+s3d .s3.local
 ```
 
 Install
@@ -48,11 +69,18 @@ make uninstall
 Config
 ---------
 
+| Key  | Required  | Description | Example |
+|---|:-:|---|---|
+| `bucket` | x | Target s3 bucket. | `my.app.assets` |
+| `build-dir`  | x | Folder of assets to upload. | `build` |
+| `path`  | x | Path in bucket that should be uploaded to. | `/my/apps/folder/$git_tag` |
+| `aws-account`  |  | Optional name of aws account to verify. | `jane-xx` |
 
-```
-# Any suffix (prod, test, local)
-s3d configure <suffix>
-```
+**`path`** : The path can include `$git_tag` and `$git_sha1`. The corresponding values will be substituted in by `s3d`.
+
+
+
+
 
 See [examples](https://github.com/will-ob/s3d/tree/master/examples) for example configurations generated with this command.
 

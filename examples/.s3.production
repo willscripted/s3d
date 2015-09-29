@@ -1,0 +1,10 @@
+{
+  "bucket": "com.f7ops.assets",
+  "aws-account": "willob",
+  "build-dir": "build",
+  "path": "/project-login/$git_tag-$git_sha1",
+  "cdns": {
+    "akamai": "//e9463.b.akamaiedge.net",
+    "cloudfront": "//d224qbp1l1oq5l.cloudfront.net"
+  }
+}

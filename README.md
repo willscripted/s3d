@@ -4,7 +4,7 @@
 <p align="center">Image creds to <a href="https://www.flickr.com/photos/moto_club4ag/">Moto "Club4AG" Miwa</a> via <a href="https://www.flickr.com/photos/moto_club4ag/19015051458">Flickr</a></p>
 
 
-S3 Deploys
+Deploy to S3
 ============
 
 Precheck, deploy, and verify S3 Assets.
@@ -27,18 +27,9 @@ Deploy
 ----------
 
 To s3
-To localhost
 
-Post-deploy hooks
 Display CDN statuses
 
-
-Verify
-----------
-
-Uploaded assets are accessable
-Uploaded assets have correct headers
-Cross-origin-bound assets are appropriately accessible
 
 ```
 
@@ -47,6 +38,7 @@ Use
 
 ```
 # any of ..
+
 s3d .s3.production
 s3d .s3.staging
 s3d .s3.local
@@ -69,21 +61,38 @@ make uninstall
 Config
 ---------
 
-| Key  | Required  | Description | Example |
-|---|:-:|---|---|
-| `bucket` | x | Target s3 bucket. | `my.app.assets` |
-| `build-dir`  | x | Folder of assets to upload. | `build` |
-| `path`  | x | Path in bucket that should be uploaded to. | `/my/apps/folder/$git_tag` |
-| `aws-account`  |  | Optional name of aws account to verify. | `jane-xx` |
+`.s3.production`
+
+```
+{
+
+  "upload": {
+    "dir": "build"
+  },
+
+  "aws": {
+    "account": "my-prod-user",
+    "keyfile": ".aws.prodkeys" // ** see details below
+  },
+
+  "bucket": {
+    "name": "name.of.my.bucket",
+    "path": "/project/$git_tag-$git_sha1",
+  },
+
+  "cdns": {
+    "cloudfront": "https://b33fgotm11k.cloudfront.net",
+    "akamai": "https://e9474.b.akamaiedge.net"
+
+    // etc ..
+
+  }
+
+}
+```
 
 **`path`** : The path can include `$git_tag` and `$git_sha1`. The corresponding values will be substituted in by `s3d`.
-
-
-
-
-
-See [examples](https://github.com/will-ob/s3d/tree/master/examples) for example configurations generated with this command.
-
+\*\* **aws.keyfile**: Optional file to source `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` from.
 
 License
 ---------

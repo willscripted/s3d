@@ -36,9 +36,10 @@ class ConfigFile
   end
 
   def bucket_path
-    if @config["bucket"] && path = @config["bucket"]["path"]
+    if path = @config["bucket"]["path"]
       # Git Repo
       git_tag  = `git describe --abbrev=0 --tags 2>/dev/null`
+      git_tag.gsub!("\n", "")
       git_tag  = git_tag != "" ? git_tag : "v0.0.0"
       git_sha1 = `git rev-parse HEAD | head -c 8`
 

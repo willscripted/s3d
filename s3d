@@ -49,7 +49,7 @@ case "$command" in
   displayHelpText
   ;;
 "--version" )
-  echo -e "s3d version $VERSION"
+  echo -e "s3d version $(cat "$path/version")\n"
   ;;
 * )
   $path/scripts/plan.rb $1

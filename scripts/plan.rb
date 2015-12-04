@@ -28,5 +28,8 @@ cf.cdns.each_pair do |k, v|
   cdn = "%-10.10s" % k
   puts "#{GREY}      #{cdn}\t#{CYAN}#{v}#{cf.bucket_path}#{NO_COLOR}"
 end
+if `test -z "$(git status --porcelain)"` == ""
+  puts "\n    #{RED}WARNING:\n\n      Working directory is not clean. Commit changes before proceeding to avoid future caching issues.#{NO_COLOR}\n\n"
+end
 puts "\n"
 

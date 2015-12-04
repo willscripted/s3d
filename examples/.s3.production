@@ -1,10 +1,16 @@
 {
-  "bucket": "com.f7ops.assets",
-  "aws-account": "willob",
-  "build-dir": "build",
-  "path": "/project-login/$git_tag-$git_sha1",
+  "upload": {
+    "dir": "build"
+  },
+  "aws": {
+    "account": "my-account-name"
+  },
+  "bucket": {
+    "name": "project-webapps",
+    "path": "/project/$git_tag-$git_sha1",
+    "options": "--cache-control max-age=2592000,public"
+  },
   "cdns": {
-    "akamai": "//e9463.b.akamaiedge.net",
-    "cloudfront": "//d224qbp1l1oq5l.cloudfront.net"
+    "cloudfront": "https://d2aks6nbq7244.cloudfront.net"
   }
 }

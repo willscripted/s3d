@@ -5,7 +5,7 @@ require "#{dir}/shared.rb"
 
 cf = ConfigFile.new(ARGV.first)
 
-output = `aws s3 sync #{cf.build_dir} s3://#{cf.bucket}#{cf.deploy_path} --acl public-read #{cf.s3_sync_flags}`
+output = `aws s3 sync #{cf.upload_dir} s3://#{cf.bucket_name}#{cf.bucket_path} --acl public-read #{cf.bucket_options}`
 
 puts output
 

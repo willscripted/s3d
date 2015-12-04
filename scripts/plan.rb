@@ -17,15 +17,16 @@ BOLD="\033[1m"
 
 puts <<-EOF
 
-#{GREY}    Folder:\t\t#{CYAN}#{cf.build_dir}#{NO_COLOR}
+#{GREY}    Folder:\t\t#{CYAN}#{cf.upload_dir}#{NO_COLOR}
 
 #{GREY}    Destinations:\t
 
 EOF
 
+puts "#{GREY}      origin\t\t#{CYAN}https://s3.amazonaws.com/#{cf.bucket_name}#{cf.bucket_path}#{NO_COLOR}"
 cf.cdns.each_pair do |k, v|
   cdn = "%-10.10s" % k
-  puts "#{GREY}      #{cdn}\t#{CYAN}#{v}#{cf.deploy_path}#{NO_COLOR}"
+  puts "#{GREY}      #{cdn}\t#{CYAN}#{v}#{cf.bucket_path}#{NO_COLOR}"
 end
 puts "\n"
 

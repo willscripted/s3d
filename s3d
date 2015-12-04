@@ -21,10 +21,17 @@ function displayHelpText {
   Usage:
 
     s3d <config-file>
+      -h, display this message
+      -f, force upload without asking for confirmation
+      -v, display version
 \n
 EOF
 )
   echo -e "$text"
+}
+
+function displayVersionText {
+  echo -e "s3d version $(cat "$path/version")\n"
 }
 
 function confirm {
@@ -40,20 +47,30 @@ function confirm {
 
 path="$(readlink $DIR/s3d | xargs dirname )"
 
-command="$1"
-case "$command" in
-"" )
+while getopts "hvf" opt; do
+  case "$opt" in 
+    h)
+      displayHelpText
+      exit 0
+      ;;
+    v)
+      displayVersionText
+      exit 0
+      ;;
+    f)
+      ignore_confirm=true
+      ;;
+  esac
+done
+
+shift "$((OPTIND-1))" # Shift off the options
+if [ ! $1 ] ; then
   displayHelpText
-  ;;
-"-h" | "--help" )
-  displayHelpText
-  ;;
-"--version" )
-  echo -e "s3d version $(cat "$path/version")\n"
-  ;;
-* )
-  $path/scripts/plan.rb $1
+  exit 0
+fi
+
+$path/scripts/plan.rb $1
+if [ ! $ignore_confirm ] ; then
   confirm
-  $path/scripts/execute.rb $1
-  ;;
-esac
+fi
+$path/scripts/execute.rb $1

@@ -3,7 +3,7 @@
 set -e
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-VERSION=0.1.0
+VERSION=0.1.2
 
 # Colors
 GREEN="\033[0;32m"
@@ -21,6 +21,11 @@ function displayHelpText {
   Usage:
 
     s3d <config-file>
+
+  Bugs go here:
+
+    https://github.com/will-ob/s3d/issues
+
 \n
 EOF
 )
@@ -52,8 +57,13 @@ case "$command" in
   echo -e "s3d version $(cat "$path/version")\n"
   ;;
 * )
-  $path/scripts/plan.rb $1
+  envfile="$($path/scripts/env.rb $1)"
+  (set -f ; IFS='
+  ' ; env - $(cat "$envfile") $path/scripts/plan.rb $1
+  )
   confirm
-  $path/scripts/execute.rb $1
+  (set -f ; IFS='
+  ' ; env - $(cat "$envfile") $path/scripts/execute.rb $1
+  )
   ;;
 esac

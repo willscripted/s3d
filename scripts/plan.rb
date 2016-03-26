@@ -15,21 +15,24 @@ YELLOW="\033[0;33m"
 NO_COLOR="\033[0m"
 BOLD="\033[1m"
 
+aws_account = `aws iam list-account-aliases | tr '[:punct:]' ' ' | tr '{[:space:]}+' ' ' | awk '{print $2}'`
+
 puts <<-EOF
 
 #{GREY}    Folder:\t\t#{CYAN}#{cf.upload_dir}#{NO_COLOR}
+#{GREY}    Account:\t\t#{CYAN}#{aws_account}#{NO_COLOR}
 
 #{GREY}    Destinations:\t
 
 EOF
 
-puts "#{GREY}      origin\t\t#{CYAN}https://s3.amazonaws.com/#{cf.bucket_name}#{cf.bucket_path}#{NO_COLOR}"
+puts "#{GREY}      origin\t\t#{CYAN}https://s3.amazonaws.com/#{cf.bucket_name}#{cf.bucket_path}/#{NO_COLOR}"
 cf.cdns.each_pair do |k, v|
   cdn = "%-10.10s" % k
-  puts "#{GREY}      #{cdn}\t#{CYAN}#{v}#{cf.bucket_path}#{NO_COLOR}"
+  puts "#{GREY}      #{cdn}\t#{CYAN}#{v}#{cf.bucket_path}/#{NO_COLOR}"
 end
 if `test -z "$(git status --porcelain)"` == ""
-  puts "\n    #{RED}WARNING:\n\n      Working directory is not clean. Commit changes before proceeding to avoid future caching issues.#{NO_COLOR}\n\n"
+  puts "\n    #{RED}Warning:\n\n      Working directory is not clean. Commit changes before proceeding to avoid future caching issues.#{NO_COLOR}\n\n"
 end
 puts "\n"
 

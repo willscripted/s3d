@@ -76,7 +76,7 @@ Config
   "bucket": {
     "name": "name.of.my.bucket",
     "path": "/project/$git_tag-$git_sha1",
-    "options" "--cache-control max-age=2592000,public"
+    "options": "--cache-control max-age=2592000,public"
   },
 
   "cdns": {
